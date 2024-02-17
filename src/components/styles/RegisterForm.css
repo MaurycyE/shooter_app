@@ -5,7 +5,7 @@
     justify-content: center;
     height: 100vh;
     /* Ustawienie wysokości kontenera na całą wysokość ekranu */
-    background-image: url('./img/kruk1.jpg');
+    background-image: url('../img/kruk1.jpg');
     /* Dodanie obrazu w tle */
     background-size: cover;
     /* Dopasowanie obrazu do wielkości kontenera */
@@ -24,7 +24,15 @@ form {
 
 input[type="text"],
 input[type="email"],
-input[type="password"],
+input[type="password"] {
+
+    width: 95%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
 button {
     width: 100%;
     padding: 10px;
@@ -44,4 +52,12 @@ button {
 button:hover {
     background-color: #0056b3;
     /* Kolor tła przycisku po najechaniu myszką */
+}
+
+.appHeader {
+
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Dodanie półprzezroczystego tła dla formularza */
+    padding: 20px;
+    border-radius: 10px;
 }

@@ -1,18 +1,16 @@
 import React, { useState } from "react";
 import './styles/RegisterForm.css';
 
-const RegisterForm = () => {
+const LoginForm = () => {
 
     const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmedPassword, setConfirmedPassword] = useState("");
 
     const handleSubmit = (e) => {
 
         e.preventDefault();
 
-        console.log("Zarejestrowano użytkownika: ", { username, email, password });
+        console.log("zalogowano użytkownika: ", { username, password });
     };
 
     return (
@@ -27,23 +25,14 @@ const RegisterForm = () => {
                 </label>
                 <br />
                 <label>
-                    Email:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </label>
-                <br />
-                <label>
                     Hasło:
                     <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
+
                 <br />
-                <label>
-                    Powtórz hasło:
-                    <input type="password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
-                </label>
+                <button type="submit">Zaloguj się</button>
                 <br />
-                <button type="submit">Zarejestruj</button>
-                <br />
-                <button>Zaloguj się</button>
+                <button>Zarejestruj</button>
 
             </form>
         </div>
@@ -51,4 +40,4 @@ const RegisterForm = () => {
 
 };
 
-export default RegisterForm;
+export default LoginForm;
