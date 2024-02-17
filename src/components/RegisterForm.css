@@ -1,0 +1,47 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    /* Ustawienie wysokości kontenera na całą wysokość ekranu */
+    background-image: url('./img/kruk1.jpg');
+    /* Dodanie obrazu w tle */
+    background-size: cover;
+    /* Dopasowanie obrazu do wielkości kontenera */
+    background-position: center;
+    /* Wyśrodkowanie obrazu */
+    color: white;
+    /* Kolor tekstu */
+}
+
+form {
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Dodanie półprzezroczystego tła dla formularza */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    background-color: #007bff;
+    /* Kolor tła przycisku */
+    color: white;
+    /* Kolor tekstu przycisku */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+    /* Kolor tła przycisku po najechaniu myszką */
+}
