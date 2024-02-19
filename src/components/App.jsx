@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RegisterForm from "./RegisterForm.jsx";
 import LoginForm from "./LoginForm.jsx";
+import MainMenu from "./MainMenu.jsx";
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
 
         <Route path="/" exact element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
+        <Route path="/mainMenu" element={<MainMenu />} />
 
       </Routes>
     </Router>

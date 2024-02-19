@@ -34,7 +34,7 @@ const LoginForm = () => {
                 {/* <button type="submit">Zaloguj się</button> */}
                 <NavigationButton
                     content="Zaloguj"
-                    link="" />
+                    link="/mainMenu" />
                 <br />
                 {/* <button>Zarejestruj</button> */}
                 <NavigationButton

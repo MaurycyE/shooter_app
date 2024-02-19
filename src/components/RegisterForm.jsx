@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NavigationButton from "./NavigationButton";
 import './styles/RegisterForm.css';
 
 const RegisterForm = () => {
@@ -41,9 +42,13 @@ const RegisterForm = () => {
                     <input type="password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
                 </label>
                 <br />
-                <button type="submit">Zarejestruj</button>
+                <NavigationButton
+                    content="Zarejestruj"
+                    link="" />
                 <br />
-                <a href="/"><button>Zaloguj się</button></a>
+                <NavigationButton
+                    content="Zaloguj"
+                    link="/" />
 
             </form>
         </div>
