@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import NavigationButton from "./NavigationButton.jsx";
 import './styles/RegisterForm.css';
 
 const LoginForm = () => {
@@ -30,9 +31,15 @@ const LoginForm = () => {
                 </label>
 
                 <br />
-                <button type="submit">Zaloguj się</button>
+                {/* <button type="submit">Zaloguj się</button> */}
+                <NavigationButton
+                    content="Zaloguj"
+                    link="" />
                 <br />
-                <button>Zarejestruj</button>
+                {/* <button>Zarejestruj</button> */}
+                <NavigationButton
+                    content="Zarejestruj"
+                    link="/register" />
 
             </form>
         </div>

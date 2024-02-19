@@ -43,7 +43,7 @@ const RegisterForm = () => {
                 <br />
                 <button type="submit">Zarejestruj</button>
                 <br />
-                <button>Zaloguj się</button>
+                <a href="/"><button>Zaloguj się</button></a>
 
             </form>
         </div>

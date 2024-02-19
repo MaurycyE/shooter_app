@@ -13,6 +13,7 @@
     /* Wyśrodkowanie obrazu */
     color: white;
     /* Kolor tekstu */
+    border: 10px solid black;
 }
 
 form {
