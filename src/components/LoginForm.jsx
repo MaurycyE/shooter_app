@@ -1,30 +1,54 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import NavigationButton from "./NavigationButton.jsx";
+import Message from "./Message.jsx";
 import { VerifyUser } from "../server/VerifyUser.js";
-import './styles/RegisterForm.css';
+import './styles/generalStyle.css';
 
 const LoginForm = () => {
 
-    const isVerified = false;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [isVerified, setIsVerified] = useState(false);
+    const [messageComponent, setMessageComponent] = useState({
+        className: "",
+        message: ""
+    })
+    const navigate = useNavigate();
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
 
-        console.log({ username, password });
+        //console.log({ username, password });
 
         const verifyUser = new VerifyUser(username, password);
-        verifyUser.checkPassword();
-        //event.preventDefault();
+        const verified = await verifyUser.checkPassword();
+        setIsVerified(verified);
+        console.log(verified);
 
-        //console.log("zalogowano użytkownika: ", { username, password });
+        if (verified) {
+
+            console.log("zalogowany");
+            navigate("./MainMenu");
+
+        } else {
+            setMessageComponent({
+                className: "allertMessage",
+                message: "Nieprawidłowe hasło lub nazwa użytkownika"
+            })
+            setPassword("");
+        }
+
     };
 
     return (
 
         <div className="container">
             <h1 className="appHeader">Aplikacja strzelecka</h1>
-            <h2>Formularz rejestracji</h2>
+            <h2>Logowanie</h2>
+            <Message
+                className={messageComponent.className}
+                message={messageComponent.message}
+            />
             <form onSubmit={handleSubmit}>
                 <label>
                     Nazwa użytkownika:

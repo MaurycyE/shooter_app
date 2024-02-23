@@ -1,4 +1,4 @@
-import './styles/RegisterForm.css';
+import './styles/generalStyle.css';
 import { Link } from 'react-router-dom';
 
 function NavigationButton(props) {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import NavigationButton from "./NavigationButton";
-import './styles/RegisterForm.css';
+import './styles/generalStyle.css';
 
 const RegisterForm = () => {
 

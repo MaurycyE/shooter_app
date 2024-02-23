@@ -30,21 +30,26 @@ export class VerifyUser {
 
                 if (passwordFromDatabase.user_password === this.password) {
 
-                    console.log("zalogowano pomyślnie");
+                    console.log("hasło prawidłowe");
+                    return true;
+                    
                 } else {
 
                     console.log("nieprawidłowe hasło");
+                    return false;
                 }
 
             } else {
 
                 console.log("nie znaleziono użytkownika");
+                return false;
             }
 
 
         } catch (error) {
 
             console.log("Błąd podczas logowania", error);
+
         }
     }
 }
