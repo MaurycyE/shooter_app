@@ -47,6 +47,7 @@ const RegisterForm = () => {
                     link="" />
                 <br />
                 <NavigationButton
+                    onClickLoginButton={() => { }}
                     content="Zaloguj"
                     link="/" />
 

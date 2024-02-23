@@ -61,15 +61,16 @@ const LoginForm = () => {
                 </label>
 
                 <br />
-                {/* <button type="submit">Zaloguj się</button> */}
+
                 <NavigationButton
                     onClickLoginButton={handleSubmit}
                     //type="submit"
                     content="Zaloguj"
                     link="" />
                 <br />
-                {/* <button>Zarejestruj</button> */}
+
                 <NavigationButton
+                    onClickLoginButton={() => { }}
                     content="Zarejestruj"
                     link="/register" />
 
