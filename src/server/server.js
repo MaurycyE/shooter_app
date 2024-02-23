@@ -41,6 +41,23 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
+app.get('/api/verifyUser', async (req, res) => {
+
+    const userName = req.query.user_name;
+    //console.log(userName);
+
+    try {
+        const result = await db.query("SELECT user_password FROM users WHERE user_name=$1;", [userName]);
+        res.json(result.rows);
+    } catch (error) {
+
+        console.error("Error executing query", error);
+        res.status(500).json({
+            error: "Internal server error"
+        });
+    }
+});
+
 
 
 app.listen(port, () => {

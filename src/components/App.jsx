@@ -27,12 +27,12 @@ function App() {
   return (
     <div>
 
-      <h1>Data from PostgreSQL</h1>
+      {/* <h1>Data from PostgreSQL</h1>
       <ul>
         {data.map(item => (
           <li key={item.id}>{item.name}</li>
         ))}
-      </ul>
+      </ul> */}
 
       <Router>
         <Routes>

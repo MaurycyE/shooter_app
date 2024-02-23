@@ -1,17 +1,23 @@
 import React, { useState } from "react";
 import NavigationButton from "./NavigationButton.jsx";
+import { VerifyUser } from "../server/VerifyUser.js";
 import './styles/RegisterForm.css';
 
 const LoginForm = () => {
 
+    const isVerified = false;
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = () => {
 
-        e.preventDefault();
+        console.log({ username, password });
 
-        console.log("zalogowano użytkownika: ", { username, password });
+        const verifyUser = new VerifyUser(username);
+        verifyUser.checkPassword();
+        //event.preventDefault();
+
+        //console.log("zalogowano użytkownika: ", { username, password });
     };
 
     return (
@@ -22,19 +28,21 @@ const LoginForm = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Nazwa użytkownika:
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
                 </label>
                 <br />
                 <label>
                     Hasło:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
                 </label>
 
                 <br />
                 {/* <button type="submit">Zaloguj się</button> */}
                 <NavigationButton
+                    onClickLoginButton={handleSubmit}
+                    //type="submit"
                     content="Zaloguj"
-                    link="/mainMenu" />
+                    link="" />
                 <br />
                 {/* <button>Zarejestruj</button> */}
                 <NavigationButton

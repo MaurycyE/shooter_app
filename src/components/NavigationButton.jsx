@@ -6,7 +6,10 @@ function NavigationButton(props) {
     return (
 
         <Link to={props.link}>
-            <button>{props.content}</button>
+            <button onClick={() => {
+
+                props.onClickLoginButton();
+            }}>{props.content}</button>
         </Link>
     );
 }
