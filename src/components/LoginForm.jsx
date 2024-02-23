@@ -13,7 +13,7 @@ const LoginForm = () => {
 
         console.log({ username, password });
 
-        const verifyUser = new VerifyUser(username);
+        const verifyUser = new VerifyUser(username, password);
         verifyUser.checkPassword();
         //event.preventDefault();
 

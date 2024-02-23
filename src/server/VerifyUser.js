@@ -4,9 +4,10 @@ const API_URL = "http://localhost:3001";
 
 export class VerifyUser {
 
-    constructor(username) {
+    constructor(username, password) {
 
         this.username = username;
+        this.password = password;
     }
 
     async checkPassword() {
@@ -16,13 +17,28 @@ export class VerifyUser {
             const response = await axios.get(`${API_URL}/api/verifyUser`, {
                 params: {
                     user_name: this.username,
+                    user_password: this.password,
                 }
             });
 
             const userData = response.data;
             if (userData.length > 0) {
 
-                console.log(userData);
+                const [passwordFromDatabase] = userData;
+
+                //console.log(passwordFromDatabase.user_password);
+
+                if (passwordFromDatabase.user_password === this.password) {
+
+                    console.log("zalogowano pomyślnie");
+                } else {
+
+                    console.log("nieprawidłowe hasło");
+                }
+
+            } else {
+
+                console.log("nie znaleziono użytkownika");
             }
 
 
