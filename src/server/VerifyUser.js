@@ -1,4 +1,5 @@
 import axios from "axios";
+import bcrypt from "bcryptjs";
 import { config } from "./config.js";
 
 //const API_URL = "http://localhost:3001";
@@ -27,19 +28,16 @@ export class VerifyUser extends config {
             if (userData.length > 0) {
 
                 const [passwordFromDatabase] = userData;
+                let arePasswordTheSame = false
 
                 //console.log(passwordFromDatabase.user_password);
+                //console.log(this.password);
 
-                if (passwordFromDatabase.user_password === this.password) {
+                arePasswordTheSame = this.checkCryptedPassword(passwordFromDatabase.user_password).then((result) => {
+                    return result;
+                });
 
-                    console.log("hasło prawidłowe");
-                    return true;
-
-                } else {
-
-                    console.log("nieprawidłowe hasło");
-                    return false;
-                }
+                return arePasswordTheSame;
 
             } else {
 
@@ -54,4 +52,17 @@ export class VerifyUser extends config {
 
         }
     }
+
+    async checkCryptedPassword(passwordFromDatabase) {
+
+        try {
+            const result = await bcrypt.compare(this.password, passwordFromDatabase);
+            return result;
+        } catch (error) {
+
+            console.error("błąd podczas sprawdzania hasła", error);
+            return false;
+        }
+
+    };
 }

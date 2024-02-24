@@ -24,7 +24,8 @@ const db = new pg.Client({
 
 db.connect();
 
-// app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("public"));
 
 app.get('/api/data', async (req, res) => {
@@ -58,15 +59,16 @@ app.get('/api/verifyUser', async (req, res) => {
     }
 });
 
-app.post('api/registerUser', async (req, res) => {
+app.post('/api/registerUser', async (req, res) => {
 
-    const newUserName = req.query.user_name;
-    const newUserMail = req.query.user_email;
-    const newUserPassword = req.query.user_password;
+    const newUserName = req.body.user_name;
+    const newUserMail = req.body.user_email;
+    const newUserPassword = req.body.user_password;
 
     try {
         await db.query("INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3)",
             [newUserName, newUserMail, newUserPassword]);
+        res.status(200).json({ message: "udana rejestracja" });
     } catch (error) {
 
         console.error("Error executing query", error);

@@ -34,7 +34,7 @@ const LoginForm = () => {
             setMessageComponent({
                 className: "allertMessage",
                 message: "Nieprawidłowe hasło lub nazwa użytkownika"
-            })
+            });
             setPassword("");
         }
 
@@ -52,12 +52,12 @@ const LoginForm = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Nazwa użytkownika:
-                    <input type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
+                    <input required type="text" value={username} onChange={(event) => setUsername(event.target.value)} />
                 </label>
                 <br />
                 <label>
                     Hasło:
-                    <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+                    <input required type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
                 </label>
 
                 <br />

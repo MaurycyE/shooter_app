@@ -70,3 +70,11 @@ button:hover {
     padding: 10px;
     border-radius: 10px;
 }
+
+.successMessage {
+
+    background-color: rgba(0, 0, 0, 0.5);
+    color: green;
+    padding: 10px;
+    border-radius: 10px;
+}

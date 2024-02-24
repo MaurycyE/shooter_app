@@ -15,12 +15,37 @@ const RegisterForm = () => {
         message: ""
     })
 
+    const clearFormFields = () => {
+
+        setUsername("");
+        setEmail("");
+        setPassword("");
+        setConfirmedPassword("");
+    }
+
     const handleSubmit = async () => {
 
-        //console.log("Zarejestrowano użytkownika: ", { username, email, password, confirmedPassword });
-        const registrationProcess = new RegisterNewUser(username, email, password);
-        const hashPassword = await registrationProcess.cryptPassword();
-        
+        if (password === confirmedPassword) {
+
+            const registrationProcess = new RegisterNewUser(username, email, password);
+            if (registrationProcess.addUserToDatabase()) {
+                //console.log("udana rejestracja");
+                setMessageComponent({
+                    className: "successMessage",
+                    message: "Rejestracja zakończona sukcesem!"
+                });
+                clearFormFields();
+
+            } else {
+                console.log("błąd serwera");
+            }
+
+        } else {
+
+            console.log("Hasła nie są zgodne");
+        }
+        //const hashPassword = await registrationProcess.cryptPassword();
+
     };
 
     return (
@@ -35,22 +60,22 @@ const RegisterForm = () => {
             <form onSubmit={handleSubmit}>
                 <label>
                     Nazwa użytkownika:
-                    <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+                    <input required type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
                 </label>
                 <br />
                 <label>
                     Email:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input required type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </label>
                 <br />
                 <label>
                     Hasło:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    <input required type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                 </label>
                 <br />
                 <label>
                     Powtórz hasło:
-                    <input type="password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
+                    <input required type="password" value={confirmedPassword} onChange={(e) => setConfirmedPassword(e.target.value)} />
                 </label>
                 <br />
                 <NavigationButton

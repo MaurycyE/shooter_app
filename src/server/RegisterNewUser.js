@@ -1,5 +1,5 @@
 import axios from "axios";
-import bcrypt, { hash } from "bcryptjs";
+import bcrypt from "bcryptjs";
 import { config } from "./config.js";
 
 export class RegisterNewUser extends config {
@@ -19,20 +19,25 @@ export class RegisterNewUser extends config {
         //console.log(hashedPassword);
     }
 
-    checkCryptedPassword(cryptedPassword) {
+    async addUserToDatabase() {
 
-        bcrypt.compare(this.newUserPassword, cryptedPassword, (err, result) => {
+        const hashedPassword = await this.cryptPassword();
+        try {
 
-            if (err) {
-                console.error(err);
-                return;
-            }
-            if (result) {
-                console.log("hasła się zgadzają");
-            } else {
-                console.log("hasła niezgodne");
-            }
-        });
-    }
+            const response = await axios.post(`${this.API_URL}/api/registerUser`, {
+
+                user_name: this.newUsername,
+                user_email: this.newUserEmail,
+                user_password: hashedPassword,
+
+            });
+            console.log("udana Rejestracja");
+
+        } catch (error) {
+            console.log("Błąd podczas rejestracji", error);
+        }
+    };
+
+
 
 }
