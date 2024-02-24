@@ -1,11 +1,13 @@
 import axios from "axios";
+import { config } from "./config.js";
 
-const API_URL = "http://localhost:3001";
+//const API_URL = "http://localhost:3001";
 
-export class VerifyUser {
+export class VerifyUser extends config {
 
-    constructor(username, password) {
+    constructor(username, password, API_URL) {
 
+        super(API_URL);
         this.username = username;
         this.password = password;
     }
@@ -14,7 +16,7 @@ export class VerifyUser {
 
         try {
 
-            const response = await axios.get(`${API_URL}/api/verifyUser`, {
+            const response = await axios.get(`${this.API_URL}/api/verifyUser`, {
                 params: {
                     user_name: this.username,
                     user_password: this.password,
@@ -32,7 +34,7 @@ export class VerifyUser {
 
                     console.log("hasło prawidłowe");
                     return true;
-                    
+
                 } else {
 
                     console.log("nieprawidłowe hasło");

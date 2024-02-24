@@ -58,6 +58,24 @@ app.get('/api/verifyUser', async (req, res) => {
     }
 });
 
+app.post('api/registerUser', async (req, res) => {
+
+    const newUserName = req.query.user_name;
+    const newUserMail = req.query.user_email;
+    const newUserPassword = req.query.user_password;
+
+    try {
+        await db.query("INSERT INTO users (user_name, user_email, user_password) VALUES ($1, $2, $3)",
+            [newUserName, newUserMail, newUserPassword]);
+    } catch (error) {
+
+        console.error("Error executing query", error);
+        res.status(500).json({
+            error: "Internal sever error"
+        });
+    }
+});
+
 
 
 app.listen(port, () => {
