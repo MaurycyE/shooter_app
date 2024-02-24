@@ -63,6 +63,5 @@ export class VerifyUser extends config {
             console.error("błąd podczas sprawdzania hasła", error);
             return false;
         }
-
     };
 }

@@ -38,6 +38,29 @@ export class RegisterNewUser extends config {
         }
     };
 
+    async findUsername() {
 
+        try {
+
+            const response = await axios.get(`${this.API_URL}/api/verifyUser`, {
+                params: {
+                    user_name: this.newUsername,
+                }
+            });
+
+            const userData = response.data;
+            if (userData.length > 0) {
+
+                return true;
+            }
+            else {
+                return false;
+            }
+        } catch (error) {
+
+            console.log("Błąd podczas rejestracji", error);
+
+        }
+    };
 
 }

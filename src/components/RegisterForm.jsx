@@ -14,6 +14,7 @@ const RegisterForm = () => {
         className: "",
         message: ""
     })
+    const [isUserDataValid, setIsUserDataValid] = useState(false);
 
     const clearFormFields = () => {
 
@@ -25,24 +26,40 @@ const RegisterForm = () => {
 
     const handleSubmit = async () => {
 
+
         if (password === confirmedPassword) {
 
             const registrationProcess = new RegisterNewUser(username, email, password);
-            if (registrationProcess.addUserToDatabase()) {
+
+            const isUserExist = await registrationProcess.findUsername();
+            if (isUserExist) {
+
+                console.log(isUserExist);
+                setMessageComponent({
+                    className: "alertMessage",
+                    message: "Nazwa użytkownika już istnieje"
+                });
+            } else
+                setIsUserDataValid(true);
+
+            if (isUserDataValid) {
                 //console.log("udana rejestracja");
+                registrationProcess.addUserToDatabase();
                 setMessageComponent({
                     className: "successMessage",
                     message: "Rejestracja zakończona sukcesem!"
                 });
                 clearFormFields();
 
-            } else {
-                console.log("błąd serwera");
             }
 
         } else {
 
-            console.log("Hasła nie są zgodne");
+            setMessageComponent({
+                className: "alertMessage",
+                message: "Hasła nie są zgodne"
+            });
+            //console.log("Hasła nie są zgodne");
         }
         //const hashPassword = await registrationProcess.cryptPassword();
 

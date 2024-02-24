@@ -42,6 +42,8 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
+
+
 app.get('/api/verifyUser', async (req, res) => {
 
     const userName = req.query.user_name;

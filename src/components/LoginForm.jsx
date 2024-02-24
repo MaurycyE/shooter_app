@@ -32,7 +32,7 @@ const LoginForm = () => {
 
         } else {
             setMessageComponent({
-                className: "allertMessage",
+                className: "alertMessage",
                 message: "Nieprawidłowe hasło lub nazwa użytkownika"
             });
             setPassword("");
