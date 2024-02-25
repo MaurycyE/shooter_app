@@ -30,9 +30,6 @@ export class VerifyUser extends config {
                 const [passwordFromDatabase] = userData;
                 let arePasswordTheSame = false
 
-                //console.log(passwordFromDatabase.user_password);
-                //console.log(this.password);
-
                 arePasswordTheSame = this.checkCryptedPassword(passwordFromDatabase.user_password).then((result) => {
                     return result;
                 });

@@ -11,7 +11,6 @@ const port = 3001;
 app.use(cors());
 
 const databaseConfig = new config;
-//console.log(databaseConfig.DB_DATABASE);
 
 const db = new pg.Client({
 
@@ -28,6 +27,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static("public"));
 
+function displayErrorMessage(error) {
+
+    console.error("Error executing query", error);
+    res.status(500).json({
+        error: "Internal server error"
+    });
+}
+
 app.get('/api/data', async (req, res) => {
 
     try {
@@ -35,10 +42,7 @@ app.get('/api/data', async (req, res) => {
         res.json(result.rows);
     } catch (error) {
 
-        console.error("Error executing query", error);
-        res.status(500).json({
-            error: "Internal server error"
-        });
+        displayErrorMessage(error);
     }
 });
 
@@ -47,17 +51,27 @@ app.get('/api/data', async (req, res) => {
 app.get('/api/verifyUser', async (req, res) => {
 
     const userName = req.query.user_name;
-    //console.log(userName);
 
     try {
         const result = await db.query("SELECT user_password FROM users WHERE user_name=$1;", [userName]);
         res.json(result.rows);
     } catch (error) {
 
-        console.error("Error executing query", error);
-        res.status(500).json({
-            error: "Internal server error"
-        });
+        displayErrorMessage(error);
+    }
+});
+
+app.get('/api/findEmail', async (req, res) => {
+
+    const userEmail = req.query.user_email;
+
+    try {
+
+        const result = await db.query("SELECT user_name FROM users WHERE user_email=$1;", [userEmail]);
+        res.json(result.rows);
+    } catch (error) {
+
+        displayErrorMessage(error);
     }
 });
 
@@ -73,14 +87,9 @@ app.post('/api/registerUser', async (req, res) => {
         res.status(200).json({ message: "udana rejestracja" });
     } catch (error) {
 
-        console.error("Error executing query", error);
-        res.status(500).json({
-            error: "Internal sever error"
-        });
+        displayErrorMessage(error);
     }
 });
-
-
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

@@ -18,8 +18,6 @@ const LoginForm = () => {
 
     const handleSubmit = async () => {
 
-        //console.log({ username, password });
-
         const verifyUser = new VerifyUser(username, password);
         const verified = await verifyUser.checkPassword();
         setIsVerified(verified);
@@ -64,7 +62,6 @@ const LoginForm = () => {
 
                 <NavigationButton
                     onClickLoginButton={handleSubmit}
-                    //type="submit"
                     content="Zaloguj"
                     link="" />
                 <br />
