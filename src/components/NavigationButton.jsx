@@ -8,7 +8,7 @@ function NavigationButton(props) {
         <Link to={props.link}>
             <button onClick={() => {
 
-                props.onClickLoginButton();
+                props.onClickButton();
             }}>{props.content}</button>
         </Link>
     );

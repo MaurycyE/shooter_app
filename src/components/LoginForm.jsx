@@ -5,7 +5,7 @@ import Message from "./Message.jsx";
 import { VerifyUser } from "../server/VerifyUser.js";
 import './styles/generalStyle.css';
 
-const LoginForm = () => {
+const LoginForm = ({ setIsLoggedIn }) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -26,7 +26,8 @@ const LoginForm = () => {
         if (verified) {
 
             console.log("zalogowany");
-            navigate("./MainMenu");
+            setIsLoggedIn(true);
+            //navigate("./MainMenu");
 
         } else {
             setMessageComponent({
@@ -61,13 +62,13 @@ const LoginForm = () => {
                 <br />
 
                 <NavigationButton
-                    onClickLoginButton={handleSubmit}
+                    onClickButton={handleSubmit}
                     content="Zaloguj"
                     link="" />
                 <br />
 
                 <NavigationButton
-                    onClickLoginButton={() => { }}
+                    onClickButton={() => { }}
                     content="Zarejestruj"
                     link="/register" />
 

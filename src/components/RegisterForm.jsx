@@ -140,12 +140,12 @@ const RegisterForm = () => {
                 </label>
                 <br />
                 <NavigationButton
-                    onClickLoginButton={handleSubmit}
+                    onClickButton={handleSubmit}
                     content="Zarejestruj"
                     link="" />
                 <br />
                 <NavigationButton
-                    onClickLoginButton={() => { }}
+                    onClickButton={() => { }}
                     content="Zaloguj"
                     link="/" />
 
