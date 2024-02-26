@@ -1,0 +1,45 @@
+.menuContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-image: url('../img/man_with_rifle.jpg');
+    background-size: cover;
+    background-position: center;
+    color: white;
+}
+
+.title {
+    margin-bottom: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Dodanie półprzezroczystego tła dla formularza */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.buttonContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Dodanie półprzezroczystego tła dla formularza */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.navigationButton {
+    margin: 10px 0;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    width: 200px;
+    /* Stała szerokość przycisków */
+    text-align: center;
+
+}

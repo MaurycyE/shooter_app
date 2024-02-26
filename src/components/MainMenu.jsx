@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import NavigationButton from "./NavigationButton.jsx";
+import NavigationMenuButton from "./NavigationMenuButton.jsx";
 import Message from "./Message.jsx";
-import './styles/generalStyle.css';
+import './styles/mainMenu.css';
 
 const MainMenu = ({ setIsLoggedIn }) => {
 
@@ -17,30 +17,37 @@ const MainMenu = ({ setIsLoggedIn }) => {
 
     return (
 
-        <div className="container">
-            <h1 className="appHeader">Aplikacja strzelecka</h1>
+        <div className="menuContainer">
+            <h1 className="title">Aplikacja strzelecka</h1>
             <h2>Menu Główne</h2>
-            <Message
+            {/* <Message
                 className={messageComponent.className}
                 message={messageComponent.message}
-            />
+            /> */}
 
+            <div className="buttonContainer">
 
-            <NavigationButton
-                onClickButton={() => { }}
-                content="Zaloguj"
-                link="" />
-            <br />
+                <NavigationMenuButton
+                    onClickButton={() => { }}
+                    content="Nowa Tarcza"
+                    link="" />
+                <br />
 
-            <NavigationButton
-                onClickButton={() => { }}
-                content="Zarejestruj"
-                link="" />
+                <NavigationMenuButton
+                    onClickButton={() => { }}
+                    content="Przeglądaj wyniki"
+                    link="" />
 
-            <NavigationButton
-                onClickButton={logOut}
-                content="Wyloguj się"
-                link="" />
+                <NavigationMenuButton
+                    onClickButton={() => { }}
+                    content="Ustawienia"
+                    link="" />
+
+                <NavigationMenuButton
+                    onClickButton={logOut}
+                    content="Wyloguj się"
+                    link="" />
+            </div>
 
 
         </div>
