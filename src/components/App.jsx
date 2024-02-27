@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import RegisterForm from "./RegisterForm.jsx";
 import LoginForm from "./LoginForm.jsx";
 import MainMenu from "./MainMenu.jsx";
+import UserSettings from "./UserSettings.jsx";
 
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [idLoggedUser, setIdLoggedUser] = useState("");
   console.log(isLoggedIn);
 
   return (
@@ -15,15 +17,18 @@ function App() {
       <Router>
         <Routes>
 
-          {/* <Route path="/" exact element={<LoginForm />} /> */}
           <Route path="/" element={
-            isLoggedIn ? <Navigate to="/mainMenu" /> : <LoginForm setIsLoggedIn={setIsLoggedIn} />
+            isLoggedIn ? <Navigate to="/mainMenu" /> : <LoginForm setIsLoggedIn={setIsLoggedIn}
+              setIdLoggedUser={setIdLoggedUser} />
           } />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/mainMenu" element={
-            isLoggedIn ? <MainMenu setIsLoggedIn={setIsLoggedIn} /> : <Navigate to="/" />
+            isLoggedIn ? <MainMenu setIsLoggedIn={setIsLoggedIn}
+              idLoggedUser={idLoggedUser} /> : <Navigate to="/" />
           } />
-          {/* <Route path="/mainMenu" element={<MainMenu />} /> */}
+          <Route path="/settings" element={
+            isLoggedIn ? <UserSettings setIsLoggedIn={setIsLoggedIn} idLoggedUser={idLoggedUser} /> : <Navigate to="/" />
+          } />
 
         </Routes>
       </Router>

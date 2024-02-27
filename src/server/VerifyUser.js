@@ -61,4 +61,24 @@ export class VerifyUser extends config {
             return false;
         }
     };
+
+    async getUserId() {
+
+        try {
+            const response = await axios.get(`${this.API_URL}/api/getId`, {
+                params: {
+                    user_name: this.username,
+                }
+
+
+            });
+            const [{ user_id: userId }] = response.data;
+            //console.log(response.data);
+            return userId;
+
+        } catch (error) {
+
+            console.log("Nie znaleziono użytkownika", error);
+        }
+    }
 }

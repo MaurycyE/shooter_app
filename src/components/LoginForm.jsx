@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import NavigationButton from "./NavigationButton.jsx";
 import Message from "./Message.jsx";
 import { VerifyUser } from "../server/VerifyUser.js";
 import './styles/generalStyle.css';
 
-const LoginForm = ({ setIsLoggedIn }) => {
+const LoginForm = ({ setIsLoggedIn, setIdLoggedUser }) => {
 
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -14,19 +14,27 @@ const LoginForm = ({ setIsLoggedIn }) => {
         className: "",
         message: ""
     })
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
+
+    const getUserId = async () => {
+
+
+    }
 
     const handleSubmit = async () => {
 
         const verifyUser = new VerifyUser(username, password);
         const verified = await verifyUser.checkPassword();
         setIsVerified(verified);
-        console.log(verified);
+        const userId = await verifyUser.getUserId();
+        //console.log(userId);
 
         if (verified) {
 
             console.log("zalogowany");
+            setIdLoggedUser(userId);
             setIsLoggedIn(true);
+
             //navigate("./MainMenu");
 
         } else {

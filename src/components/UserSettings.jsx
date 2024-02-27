@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import InputField from './InputField.jsx';
+import NavigationButton from './NavigationButton.jsx';
+import './styles/generalStyle.css'
 
-const SettingsPanel = ({ user }) => {
-    const [name, setName] = useState(user.name);
-    const [email, setEmail] = useState(user.email);
+const SettingsPanel = ({ setIsLoggedIn, setIdLoggedUser }) => {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
 
@@ -11,41 +14,57 @@ const SettingsPanel = ({ user }) => {
     };
 
     return (
-        <div className="settings-panel">
-            <h2>Ustawienia użytkownika</h2>
-            <div className="setting-item">
-                <label>Imię:</label>
-                <input
+        <div className="container">
+            <h2 className="appHeader">Ustawienia użytkownika</h2>
+
+            <form>
+                <InputField
+                    labelContent="Nazwa użytkownika"
                     type="text"
                     value={name}
-                    onChange={(e) => setName(e.target.value)}
+                    setChangedValue={setName()}
                 />
-            </div>
-            <div className="setting-item">
-                <label>Email:</label>
-                <input
+
+                <InputField
+                    labelContent="Email"
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    setChangedValue={setEmail()}
                 />
-            </div>
-            <div className="setting-item">
-                <label>Hasło:</label>
-                <input
+
+                <InputField
+                    labelContent="Obecne hasło"
                     type="password"
                     value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    setChangedValue={setPassword()}
                 />
-            </div>
-            <div className="setting-item">
-                <label>Nowe hasło:</label>
-                <input
+
+                <InputField
+                    labelContent="Wprowadź nowe hasło"
                     type="password"
                     value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
+                    setChangedValue={setNewPassword()}
                 />
-            </div>
-            <button onClick={handleSave}>Zapisz zmiany</button>
+                {/* <div className="setting-item">
+                    <label>Imię:</label>
+                    <input
+                        type="text"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                    />
+                </div> */}
+
+                <NavigationButton
+                    onClickButton={handleSave}
+                    content="Zapisz zmiany"
+                    link="" />
+
+                <NavigationButton
+                    onClickButton={() => { }}
+                    content="Powrót"
+                    link="/mainMenu" />
+
+            </form>
         </div>
     );
 };

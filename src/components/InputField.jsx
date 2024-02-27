@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import './styles/generalStyle.css';
 
-function InputField() {
+function InputField(props) {
 
+    const [inputValue, setInputValue] = useState("");
+
+    const handleChange = () => {
+
+
+    };
 
     return (
-        <div className="setting-item">
-            <label>Imię:</label>
+        <div>
+            <label>{props.labelContent}</label>
             <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                type={props.type}
+                value={inputValue}
+                onChange={(e) => handleChange(e.target.value)}
             />
         </div>);
 

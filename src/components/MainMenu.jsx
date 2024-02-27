@@ -3,12 +3,14 @@ import NavigationMenuButton from "./NavigationMenuButton.jsx";
 import Message from "./Message.jsx";
 import './styles/mainMenu.css';
 
-const MainMenu = ({ setIsLoggedIn }) => {
+const MainMenu = ({ setIsLoggedIn, idLoggedUser }) => {
 
     const [messageComponent, setMessageComponent] = useState({
         className: "",
         message: ""
     });
+    //const idLoggedUser = idLoggedUser;
+    console.log(idLoggedUser);
 
     function logOut() {
 
@@ -41,7 +43,7 @@ const MainMenu = ({ setIsLoggedIn }) => {
                 <NavigationMenuButton
                     onClickButton={() => { }}
                     content="Ustawienia"
-                    link="" />
+                    link="/settings" />
 
                 <NavigationMenuButton
                     onClickButton={logOut}

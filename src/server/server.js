@@ -46,6 +46,19 @@ app.get('/api/data', async (req, res) => {
     }
 });
 
+app.get('/api/getId', async (req, res) => {
+
+    const userName = req.query.user_name;
+
+    try {
+
+        const result = await db.query('SELECT user_id FROM users WHERE user_name=$1;', [userName]);
+        res.json(result.rows);
+    } catch (error) {
+        displayErrorMessage(error);
+    }
+})
+
 
 
 app.get('/api/verifyUser', async (req, res) => {
