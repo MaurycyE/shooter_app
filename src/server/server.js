@@ -35,10 +35,12 @@ function displayErrorMessage(error) {
     });
 }
 
-app.get('/api/data', async (req, res) => {
+app.get('/api/user', async (req, res) => {
+
+    const userId = req.query.user_id;
 
     try {
-        const result = await db.query('SELECT * FROM users');
+        const result = await db.query('SELECT user_name, user_email FROM users WHERE user_id=$1;', [userId]);
         res.json(result.rows);
     } catch (error) {
 
@@ -100,6 +102,22 @@ app.post('/api/registerUser', async (req, res) => {
         res.status(200).json({ message: "udana rejestracja" });
     } catch (error) {
 
+        displayErrorMessage(error);
+    }
+});
+
+app.put('/api/update', async (req, res) => {
+
+    const usernameToUpdate = req.body.user_name;
+    const emailToUpdate = req.body.user_email;
+    const userId = req.body.user_id;
+
+    try {
+
+        await db.query("UPDATE users SET user_name = ($1), user_email = ($2) WHERE user_id = $3",
+            [usernameToUpdate, emailToUpdate, userId]);
+        res.status(200).json({ message: "Wprowadzono zmiany" });
+    } catch (error) {
         displayErrorMessage(error);
     }
 });

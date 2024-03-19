@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import './styles/generalStyle.css';
 
 function InputField(props) {
 
-    const [inputValue, setInputValue] = useState("");
+    const [inputValue, setInputValue] = useState(props.value);
 
-    const handleChange = () => {
+    //console.log("kolejność: input");
+    //console.log(props.value);
 
+    // useEffect(() => {
 
+    //     if (props.value) {
+    //         setInputValue(props.value);
+    //     }
+    // });
+
+    const handleChange = (targetValue) => {
+
+        setInputValue(targetValue);
+        props.setChangedValue(targetValue);
+        //console.log(inputValue);
     };
 
     return (
@@ -15,7 +27,7 @@ function InputField(props) {
             <label>{props.labelContent}</label>
             <input
                 type={props.type}
-                value={inputValue}
+                value={props.value}
                 onChange={(e) => handleChange(e.target.value)}
             />
         </div>);
