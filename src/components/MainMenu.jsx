@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import NavigationMenuButton from "./NavigationMenuButton.jsx";
-import Message from "./Message.jsx";
+//import Message from "./Message.jsx";
 import './styles/mainMenu.css';
 
 const MainMenu = ({ setIsLoggedIn, idLoggedUser }) => {
 
-    const [messageComponent, setMessageComponent] = useState({
-        className: "",
-        message: ""
-    });
+    // const [messageComponent, setMessageComponent] = useState({
+    //     className: "",
+    //     message: ""
+    // });
     //const idLoggedUser = idLoggedUser;
     console.log(idLoggedUser);
 

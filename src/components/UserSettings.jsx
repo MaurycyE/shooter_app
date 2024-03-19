@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import InputField from './InputField.jsx';
 import NavigationButton from './NavigationButton.jsx';
+import Message from "./Message";
 import { Settings } from '../server/Settings.js';
 import './styles/generalStyle.css'
 
@@ -9,6 +10,10 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [messageComponent, setMessageComponent] = useState({
+        className: "",
+        message: ""
+    })
 
 
     useEffect(() => {
@@ -27,10 +32,18 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
 
     }, []);
 
-    const handleSave = () => {
+    const handleSave = async () => {
 
         const settingsProcess = new Settings(idLoggedUser);
-        settingsProcess.saveNewUserData(name, email);
+
+        const result = await settingsProcess.saveNewUserData(name, email);
+
+        setMessageComponent({
+            className: result.className,
+            message: result.message
+        });
+        //console.log(result.className);
+        //console.log(result.message);
         // Obsługa zapisu zmian
     };
 
@@ -38,6 +51,11 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
     return (
         <div className="container">
             <h2 className="appHeader">Ustawienia użytkownika</h2>
+
+            <Message
+                className={messageComponent.className}
+                message={messageComponent.message}
+            />
 
             <form>
                 <InputField

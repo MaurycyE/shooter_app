@@ -44,10 +44,18 @@ export class Settings extends config {
 
             });
             console.log("Wprowadzono zmiany", response.data);
+            return {
+                className: "successMessage",
+                message: "Zmiany zapisane!"
+            }
 
         } catch (error) {
 
             console.error("nie udało się wprowadzić zmian", error);
+            return {
+                className: "alertMessage",
+                message: "Błąd serwera!"
+            }
         }
     }
 
