@@ -1,8 +1,6 @@
 import axios from "axios";
-//import bcrypt from "bcryptjs";
 import { config } from "./config.js";
-import { VerifyUser } from "./VerifyUser.js";
-import { RegisterNewUser } from "./RegisterNewUser.js";
+import { CheckUserCredentials } from "./CheckUserCredentials.js";
 
 export class Settings extends config {
 
@@ -15,7 +13,6 @@ export class Settings extends config {
 
         try {
 
-            //console.log(this.userId);
             const response = await axios.get(`${this.API_URL}/api/user`, {
                 params: {
                     user_id: this.userId,
@@ -24,8 +21,6 @@ export class Settings extends config {
 
             const userData = response.data;
             return userData;
-            //console.log(userData);
-
 
         } catch (error) {
 
@@ -36,42 +31,56 @@ export class Settings extends config {
 
     async saveNewUserData(newUsername, newUserEmail) {
 
-        this.checkUserNewData(newUsername, newUserEmail);
-        try {
+        const isDataFromUserOK = await this.checkUserNewData(newUsername, newUserEmail);
 
-            const response = await axios.put(`${this.API_URL}/api/update`, {
+        console.log(isDataFromUserOK.isUserDataValid);
 
-                user_name: newUsername,
-                user_email: newUserEmail,
-                user_id: this.userId
+        if (!isDataFromUserOK.isUserDataValid) {
 
-            });
-            console.log("Wprowadzono zmiany", response.data);
             return {
-                className: "successMessage",
-                message: "Zmiany zapisane!"
+                className: isDataFromUserOK.className,
+                message: isDataFromUserOK.message
             }
+        } else {
 
-        } catch (error) {
+            try {
 
-            console.error("nie udało się wprowadzić zmian", error);
-            return {
-                className: "alertMessage",
-                message: "Błąd serwera!"
+                const response = await axios.put(`${this.API_URL}/api/update`, {
+
+                    user_name: newUsername,
+                    user_email: newUserEmail,
+                    user_id: this.userId
+
+                });
+                console.log("Wprowadzono zmiany", response.data);
+                return {
+                    className: "successMessage",
+                    message: "Zmiany zapisane!"
+                }
+
+            } catch (error) {
+
+                console.error("nie udało się wprowadzić zmian", error);
+                return {
+                    className: "alertMessage",
+                    message: "Błąd serwera!"
+                }
             }
         }
     }
 
     async checkUserNewData(userName, newUserEmail) {
 
-        let isDataValid = true;
+        const checkingMethods = new CheckUserCredentials(userName, newUserEmail, "");
 
-        const checkUserData = new RegisterNewUser(userName, newUserEmail, "");
+        let result = await checkingMethods.checkDataFromUser(this.userId);
 
-        const result = await checkUserData.findUsername();
-
+        if (!result.isUserDataValid) {
+            return result;
+        }
         console.log(result);
 
+        return { isUserDataValid: true };
 
     }
 

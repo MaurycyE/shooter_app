@@ -82,7 +82,7 @@ app.get('/api/findEmail', async (req, res) => {
 
     try {
 
-        const result = await db.query("SELECT user_name FROM users WHERE user_email=$1;", [userEmail]);
+        const result = await db.query("SELECT user_id FROM users WHERE user_email=$1;", [userEmail]);
         res.json(result.rows);
     } catch (error) {
 
