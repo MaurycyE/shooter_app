@@ -42,12 +42,10 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
             className: result.className,
             message: result.message
         });
-        //console.log(result.className);
-        //console.log(result.message);
-        // Obsługa zapisu zmian
+
     };
 
-    //console.log(password);
+
     return (
         <div className="container">
             <h2 className="appHeader">Ustawienia użytkownika</h2>

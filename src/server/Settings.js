@@ -1,6 +1,8 @@
 import axios from "axios";
 //import bcrypt from "bcryptjs";
 import { config } from "./config.js";
+import { VerifyUser } from "./VerifyUser.js";
+import { RegisterNewUser } from "./RegisterNewUser.js";
 
 export class Settings extends config {
 
@@ -34,6 +36,7 @@ export class Settings extends config {
 
     async saveNewUserData(newUsername, newUserEmail) {
 
+        this.checkUserNewData(newUsername, newUserEmail);
         try {
 
             const response = await axios.put(`${this.API_URL}/api/update`, {
@@ -57,6 +60,19 @@ export class Settings extends config {
                 message: "Błąd serwera!"
             }
         }
+    }
+
+    async checkUserNewData(userName, newUserEmail) {
+
+        let isDataValid = true;
+
+        const checkUserData = new RegisterNewUser(userName, newUserEmail, "");
+
+        const result = await checkUserData.findUsername();
+
+        console.log(result);
+
+
     }
 
 };

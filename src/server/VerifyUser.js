@@ -73,7 +73,6 @@ export class VerifyUser extends config {
 
             });
             const [{ user_id: userId }] = response.data;
-            //console.log(response.data);
             return userId;
 
         } catch (error) {
