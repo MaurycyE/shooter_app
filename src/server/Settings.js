@@ -27,13 +27,13 @@ export class Settings extends config {
             console.log("Nie znaleziono użytkownika", error);
             return null;
         }
-    }
+    };
 
     async saveNewUserData(newUsername, newUserEmail) {
 
         const isDataFromUserOK = await this.checkUserNewData(newUsername, newUserEmail);
 
-        console.log(isDataFromUserOK.isUserDataValid);
+        //console.log(isDataFromUserOK.isUserDataValid);
 
         if (!isDataFromUserOK.isUserDataValid) {
 
@@ -67,7 +67,19 @@ export class Settings extends config {
                 }
             }
         }
-    }
+    };
+
+    async changePassword(oldPassword, newPassword, userName) {
+
+        this.checkActualPassword(oldPassword, userName);
+    };
+
+    async checkActualPassword(actualPassword, userName) {
+
+        const checkingMethods = new CheckUserCredentials(userName, "", actualPassword);
+        let result = await checkingMethods.checkUserPassword();
+        //console.log(result);
+    };
 
     async checkUserNewData(userName, newUserEmail) {
 
@@ -78,11 +90,13 @@ export class Settings extends config {
         if (!result.isUserDataValid) {
             return result;
         }
-        console.log(result);
+        //console.log(result);
 
         return { isUserDataValid: true };
 
-    }
+    };
+
+
 
 };
 

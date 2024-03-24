@@ -25,7 +25,7 @@ export class CheckUserCredentials extends config {
             const [userData] = response.data;
             //console.log(response.data.length);
 
-            if (response.data.length > 0 && userData.user_id != userID) {
+            if (response.data.length > 0 && userData.user_id !== userID) {
 
                 return true;
             }
@@ -52,7 +52,7 @@ export class CheckUserCredentials extends config {
 
             //console.log(userData.user_id);
 
-            if (response.data.length > 0 && userData.user_id != userID) {
+            if (response.data.length > 0 && userData.user_id !== userID) {
                 return true;
             } else
                 return false;
@@ -61,6 +61,25 @@ export class CheckUserCredentials extends config {
             console.log("Błąd podczas wykonywania zapytania", error);
         }
     };
+
+    async getPasswordFromDatabase() {
+
+        try {
+
+            const response = await axios.get(`${this.API_URL}/api/verifyUser`, {
+                params: {
+                    user_name: this.username,
+                }
+            });
+
+            const [userData] = response.data;
+            //console.log(userData.user_password);
+            return userData.user_password;
+
+        } catch (error) {
+            console.log("Błąd podczas wykonywania zapytania", error);
+        }
+    }
 
     async areAllFieldsFilled() {
 
@@ -126,32 +145,14 @@ export class CheckUserCredentials extends config {
 
     };
 
-    // async checkEmail(userID) {
+    async checkUserPassword() {
 
-    //     const reg = /^[a-z\d]+[\w\d.-]*@(?:[a-z\d]+[a-z\d-]+\.){1,5}[a-z]{2,6}$/i;
-    //     const checkEmail = reg.test(this.userEmail);
+        const passwordFromDatabase = await this.getPasswordFromDatabase();
 
-    //     if (!checkEmail) {
-    //         return {
-    //             isUserDataValid: false,
-    //             className: "alertMessage",
-    //             message: "Błędny adres email"
-    //         }
-    //     };
+        const result = await bcrypt.compare(this.userPassword, passwordFromDatabase);
 
-    //     const result = await this.findEmail(userID);
-    //     if (result) {
+        console.log(result);
 
-    //         return {
-    //             isUserDataValid: false,
-    //             className: "alertMessage",
-    //             message: "Adres email już istnieje"
-    //         }
-    //     };
-
-    //     return { isUserDataValid: true };
-
-    // }
-
+    }
 
 }

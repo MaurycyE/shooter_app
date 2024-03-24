@@ -38,6 +38,11 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
 
         const result = await settingsProcess.saveNewUserData(name, email);
 
+        if (password.length > 0 && newPassword.length > 0) {
+
+            const passwordChange = await settingsProcess.changePassword(password, newPassword, name);
+        }
+
         setMessageComponent({
             className: result.className,
             message: result.message

@@ -66,6 +66,7 @@ app.get('/api/getId', async (req, res) => {
 app.get('/api/verifyUser', async (req, res) => {
 
     const userName = req.query.user_name;
+    //console.log(userName);
 
     try {
         const result = await db.query("SELECT user_password FROM users WHERE user_name=$1;", [userName]);
@@ -121,6 +122,22 @@ app.put('/api/update', async (req, res) => {
         displayErrorMessage(error);
     }
 });
+
+app.put('/api/passUpdate', async (req, res) => {
+
+    const newPassword = req.body.user_password;
+    const userId = req.body.user_id;
+
+    try {
+
+        await db.query("UPDATE users SET user_password = ($1) WHERE user_id = $2",
+            [newPassword, userId]);
+        res.status(200).json({ message: "Zaktualizowano hasło" });
+    } catch (error) {
+        displayErrorMessage(error);
+    }
+
+})
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

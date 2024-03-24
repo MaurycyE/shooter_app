@@ -9,7 +9,7 @@ function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [idLoggedUser, setIdLoggedUser] = useState("");
-  console.log(isLoggedIn);
+  //console.log(isLoggedIn);
 
   return (
     <div>
