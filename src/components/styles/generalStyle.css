@@ -59,7 +59,7 @@ button:hover {
 
     background-color: rgba(0, 0, 0, 0.5);
     /* Dodanie półprzezroczystego tła dla formularza */
-    padding: 20px;
+    padding: 15px;
     border-radius: 10px;
 }
 

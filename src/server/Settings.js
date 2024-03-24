@@ -1,4 +1,5 @@
 import axios from "axios";
+import bcrypt from "bcryptjs";
 import { config } from "./config.js";
 import { CheckUserCredentials } from "./CheckUserCredentials.js";
 
@@ -71,14 +72,58 @@ export class Settings extends config {
 
     async changePassword(oldPassword, newPassword, userName) {
 
-        this.checkActualPassword(oldPassword, userName);
+
+        const arePasswordValid = await this.checkActualPassword(oldPassword, userName);
+
+        console.log(arePasswordValid);
+
+        if (!arePasswordValid) {
+            return {
+                className: "alertMessage",
+                message: "Błędne hasło"
+            }
+        };
+
+        if (newPassword.length < 8) {
+            return {
+                className: "alertMessage",
+                message: "Nowe hasło musi mieć conajmniej 8 znaków"
+            };
+        };
+
+        try {
+
+            const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+            const response = await axios.put(`${this.API_URL}/api/passUpdate`, {
+
+                user_password: hashedPassword,
+                user_id: this.userId
+
+            });
+
+            return {
+                className: "successMessage",
+                message: "Hasło zostało zmienione!"
+            }
+
+        } catch (error) {
+
+            console.error("nie udało się wprowadzić zmian", error);
+            return {
+                className: "alertMessage",
+                message: "Błąd serwera!"
+            }
+        }
+
     };
 
     async checkActualPassword(actualPassword, userName) {
 
         const checkingMethods = new CheckUserCredentials(userName, "", actualPassword);
-        let result = await checkingMethods.checkUserPassword();
+        let result = await checkingMethods.checkUserPassword(this.userId);
         //console.log(result);
+        return result;
     };
 
     async checkUserNewData(userName, newUserEmail) {

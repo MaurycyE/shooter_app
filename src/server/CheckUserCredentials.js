@@ -62,13 +62,13 @@ export class CheckUserCredentials extends config {
         }
     };
 
-    async getPasswordFromDatabase() {
+    async getPasswordFromDatabase(userID) {
 
         try {
 
-            const response = await axios.get(`${this.API_URL}/api/verifyUser`, {
+            const response = await axios.get(`${this.API_URL}/api/getPassword`, {
                 params: {
-                    user_name: this.username,
+                    user_id: userID,
                 }
             });
 
@@ -79,7 +79,7 @@ export class CheckUserCredentials extends config {
         } catch (error) {
             console.log("Błąd podczas wykonywania zapytania", error);
         }
-    }
+    };
 
     async areAllFieldsFilled() {
 
@@ -145,13 +145,13 @@ export class CheckUserCredentials extends config {
 
     };
 
-    async checkUserPassword() {
+    async checkUserPassword(userID) {
 
-        const passwordFromDatabase = await this.getPasswordFromDatabase();
+        const passwordFromDatabase = await this.getPasswordFromDatabase(userID);
 
         const result = await bcrypt.compare(this.userPassword, passwordFromDatabase);
 
-        console.log(result);
+        return result;
 
     }
 

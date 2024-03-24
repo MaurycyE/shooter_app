@@ -77,6 +77,19 @@ app.get('/api/verifyUser', async (req, res) => {
     }
 });
 
+app.get('/api/getPassword', async (req, res) => {
+
+    const userId = req.query.user_id;
+
+    try {
+        const result = await db.query("SELECT user_password FROM users WHERE user_id=$1;", [userId]);
+        res.json(result.rows);
+    } catch (error) {
+
+        displayErrorMessage(error);
+    }
+})
+
 app.get('/api/findEmail', async (req, res) => {
 
     const userEmail = req.query.user_email;

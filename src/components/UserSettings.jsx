@@ -15,7 +15,6 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
         message: ""
     })
 
-
     useEffect(() => {
 
         async function fetchData() {
@@ -25,29 +24,48 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
             setName(currentUserData.user_name);
             setEmail(currentUserData.user_email);
 
-
         }
 
         fetchData();
 
     }, []);
 
-    const handleSave = async () => {
+    const handleUserDataSave = async () => {
 
         const settingsProcess = new Settings(idLoggedUser);
 
         const result = await settingsProcess.saveNewUserData(name, email);
 
-        if (password.length > 0 && newPassword.length > 0) {
-
-            const passwordChange = await settingsProcess.changePassword(password, newPassword, name);
-        }
 
         setMessageComponent({
             className: result.className,
             message: result.message
         });
 
+    };
+
+    const handlePasswordSave = async () => {
+
+        const settingsProcess = new Settings(idLoggedUser);
+
+        if (password.length > 0 && newPassword.length > 0) {
+
+            const passwordChange = await settingsProcess.changePassword(password, newPassword, name);
+
+            setMessageComponent({
+                className: passwordChange.className,
+                message: passwordChange.message
+            });
+
+            setPassword("");
+            setNewPassword("");
+        }
+        else {
+            setMessageComponent({
+                className: "alertMessage",
+                message: "Wypełnij pola"
+            });
+        }
     };
 
 
@@ -75,6 +93,16 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
                     setChangedValue={setEmail}
                 />
 
+                <NavigationButton
+                    onClickButton={handleUserDataSave}
+                    content="Zapisz zmiany"
+                    link="" />
+
+            </form>
+            <h2 className="appHeader">Zmiana hasła:</h2>
+
+            <form>
+
                 <InputField
                     labelContent="Obecne hasło"
                     type="password"
@@ -88,26 +116,18 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
                     value={newPassword}
                     setChangedValue={setNewPassword}
                 />
-                {/* <div className="setting-item">
-                    <label>Imię:</label>
-                    <input
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    />
-                </div> */}
 
                 <NavigationButton
-                    onClickButton={handleSave}
+                    onClickButton={handlePasswordSave}
                     content="Zapisz zmiany"
                     link="" />
 
-                <NavigationButton
-                    onClickButton={() => { }}
-                    content="Powrót"
-                    link="/mainMenu" />
-
             </form>
+
+            <NavigationButton
+                onClickButton={() => { }}
+                content="Powrót"
+                link="/mainMenu" />
         </div>
     );
 };
