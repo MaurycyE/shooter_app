@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import InputField from './InputField.jsx';
 import NavigationButton from './NavigationButton.jsx';
 import Message from "./Message";
+//import { Navigate } from 'react-router-dom';
 import { Settings } from '../server/Settings.js';
 import './styles/generalStyle.css'
 
@@ -13,7 +14,10 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
     const [messageComponent, setMessageComponent] = useState({
         className: "",
         message: ""
-    })
+    });
+    const [showForm, setShowForm] = useState(false);
+    const [confirmation, setConfirmation] = useState('');
+    //const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
 
@@ -29,7 +33,22 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
         fetchData();
 
     }, []);
+    ///////
+    // const handleInputChange = (event) => {
+    //     //const { name, value } = event.target;
+    //     setConfirmation(event.target.value);
+    // };
 
+    const deleteUser = (event) => {
+        event.preventDefault();
+        // Dodaj logikę obsługi formularza
+        console.log("Formularz został wysłany!");
+        // Możesz również zaktualizować stan showForm, aby ukryć formularz
+        setShowForm(false);
+        setIsLoggedIn(false);
+
+    };
+    /////////
     const handleUserDataSave = async () => {
 
         const settingsProcess = new Settings(idLoggedUser);
@@ -72,6 +91,8 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
     return (
         <div className="container">
             <h2 className="appHeader">Ustawienia użytkownika</h2>
+
+            {/* {redirect && <Navigate to="/" />} */}
 
             <Message
                 className={messageComponent.className}
@@ -124,10 +145,40 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
 
             </form>
 
-            <NavigationButton
-                onClickButton={() => { }}
-                content="Powrót"
-                link="/mainMenu" />
+
+
+            <div className='bottomBar'>
+                <NavigationButton
+                    onClickButton={() => { }}
+                    content="Powrót"
+                    link="/mainMenu" />
+
+                <NavigationButton
+                    onClickButton={() => setShowForm(true)}
+                    content="Usuń użytkownika"
+                    link=""
+                    condition={showForm ? 'Ukryj formularz' : 'Pokaż formularz'} />
+            </div>
+
+            {showForm && (
+                <div className="formWindow">
+                    <h2>Konto zostanie usunięte wraz ze wszystkimi danymi!</h2>
+                    <form onSubmit={deleteUser}>
+
+                        <InputField
+                            labelContent='Jeśli chcesz usunąć konto wpisz w poniższe pole "usuwam"'
+                            type="text"
+                            value={confirmation}
+                            setChangedValue={setConfirmation}
+                        />
+                        <br />
+                        <button type="submit">Potwierdź</button>
+                        <button onClick={() => setShowForm(false)}>Anuluj</button>
+                    </form>
+                </div>
+            )}
+
+
         </div>
     );
 };

@@ -78,3 +78,47 @@ button:hover {
     padding: 10px;
     border-radius: 10px;
 }
+
+.bottomBar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    /* Kolor tła */
+    padding: 10px;
+    /* Wewnętrzny odstęp */
+    display: flex;
+    justify-content: center;
+    /* Wyśrodkowanie elementów */
+    align-items: center;
+    /* Wyśrodkowanie elementów w pionie */
+    gap: 10px;
+    /* Odstęp pomiędzy przyciskami */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* Cień pod paskiem nawigacyjnym */
+}
+
+.formWindow {
+    position: fixed;
+    /* Ustawia formularz na stałej pozycji, niezależnie od przewijania strony */
+    top: 50%;
+    /* Ustawia górną krawędź formularza na 50% wysokości okna przeglądarki */
+    left: 50%;
+    /* Ustawia lewą krawędź formularza na 50% szerokości okna przeglądarki */
+    transform: translate(-50%, -50%);
+    /* Przesuwa formularz w pionie i poziomie, aby był wyśrodkowany */
+    padding: 20px;
+    /* Dodaje wewnętrzne marginesy dla lepszego wyglądu */
+    background-image: url('../img/raven2.jpg');
+    background-size: cover;
+    border: 1px solid black;
+    /* Dodaje ramkę wokół formularza */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Dodaje cień dla efektu 3D */
+    z-index: 999;
+    /* Ustawia formularz na wierzchu innych elementów na stronie */
+    width: 300px;
+    /* Ustawia szerokość formularza */
+    max-width: 90%;
+    /* Ustawia maksymalną szerokość formularza na 90% szerokości okna przeglądarki */
+}

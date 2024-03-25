@@ -152,6 +152,19 @@ app.put('/api/passUpdate', async (req, res) => {
 
 })
 
+app.delete('/api/deleteUser', async (req, res) => {
+
+    const userId = req.body.user_id;
+
+    try {
+
+        await db.query("DELETE FROM users WHERE user_id = $1", [userId]);
+        res.status(200).json({ message: "Usunięto użytkownika" });
+    } catch (error) {
+        displayErrorMessage(error);
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

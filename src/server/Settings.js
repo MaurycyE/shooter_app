@@ -141,6 +141,21 @@ export class Settings extends config {
 
     };
 
+    async deleteUser() {
+
+        try {
+
+            const response = await axios.get(`${this.API_URL}/api/deleteUser`, {
+                user_id: this.userId,
+            });
+
+        } catch (error) {
+
+            console.log("Błąd serwera", error);
+            return null;
+        }
+    }
+
 
 
 };
