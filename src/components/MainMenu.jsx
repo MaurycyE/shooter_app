@@ -5,11 +5,6 @@ import './styles/mainMenu.css';
 
 const MainMenu = ({ setIsLoggedIn, idLoggedUser }) => {
 
-    // const [messageComponent, setMessageComponent] = useState({
-    //     className: "",
-    //     message: ""
-    // });
-    //const idLoggedUser = idLoggedUser;
     console.log(idLoggedUser);
 
     function logOut() {
@@ -22,10 +17,6 @@ const MainMenu = ({ setIsLoggedIn, idLoggedUser }) => {
         <div className="menuContainer">
             <h1 className="title">Aplikacja strzelecka</h1>
             <h2>Menu Główne</h2>
-            {/* <Message
-                className={messageComponent.className}
-                message={messageComponent.message}
-            /> */}
 
             <div className="buttonContainer">
 

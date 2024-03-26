@@ -8,7 +8,11 @@ import { config } from "./config.js";
 const app = express();
 const port = 3001;
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000', // Adres URL twojej aplikacji React
+    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Dopuszczone metody HTTP
+    allowedHeaders: ['Content-Type', 'Authorization'] // Dopuszczone nagłówki
+}));
 
 const databaseConfig = new config;
 
@@ -152,9 +156,9 @@ app.put('/api/passUpdate', async (req, res) => {
 
 })
 
-app.delete('/api/deleteUser', async (req, res) => {
+app.delete('/api/deleteUser/:userId', async (req, res) => {
 
-    const userId = req.body.user_id;
+    const userId = req.params.userId;
 
     try {
 

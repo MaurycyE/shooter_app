@@ -2,6 +2,9 @@ import axios from "axios";
 import bcrypt from "bcryptjs";
 import { config } from "./config.js";
 import { CheckUserCredentials } from "./CheckUserCredentials.js";
+//import cors from "cors";
+
+//app.use(cors());
 
 export class Settings extends config {
 
@@ -145,18 +148,15 @@ export class Settings extends config {
 
         try {
 
-            const response = await axios.get(`${this.API_URL}/api/deleteUser`, {
-                user_id: this.userId,
-            });
+            const response = await axios.delete(`${this.API_URL}/api/deleteUser/${this.userId}`);
+            return true;
 
         } catch (error) {
 
             console.log("Błąd serwera", error);
-            return null;
+            return false;
         }
-    }
-
-
+    };
 
 };
 

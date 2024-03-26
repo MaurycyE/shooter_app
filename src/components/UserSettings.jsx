@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import InputField from './InputField.jsx';
 import NavigationButton from './NavigationButton.jsx';
 import Message from "./Message";
-//import { Navigate } from 'react-router-dom';
 import { Settings } from '../server/Settings.js';
 import './styles/generalStyle.css'
 
@@ -17,7 +16,7 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
     });
     const [showForm, setShowForm] = useState(false);
     const [confirmation, setConfirmation] = useState('');
-    //const [redirect, setRedirect] = useState(false);
+    const deletePassword = "rozumiem";
 
     useEffect(() => {
 
@@ -33,22 +32,33 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
         fetchData();
 
     }, []);
-    ///////
-    // const handleInputChange = (event) => {
-    //     //const { name, value } = event.target;
-    //     setConfirmation(event.target.value);
-    // };
 
-    const deleteUser = (event) => {
+    const deleteUser = async (event) => {
         event.preventDefault();
-        // Dodaj logikę obsługi formularza
-        console.log("Formularz został wysłany!");
-        // Możesz również zaktualizować stan showForm, aby ukryć formularz
-        setShowForm(false);
-        setIsLoggedIn(false);
+
+        if (confirmation === deletePassword) {
+            const settingsProcess = new Settings(idLoggedUser);
+            const deletingProcess = await settingsProcess.deleteUser();
+
+            if (deletingProcess) {
+                setShowForm(false);
+                setIsLoggedIn(false);
+            } else {
+
+                setMessageComponent({
+                    className: "alertMessage",
+                    message: "Błąd podczas usuwania konta"
+                });
+            }
+        } else {
+            setMessageComponent({
+                className: "alertMessage",
+                message: "Niepoprawnie przepisane hasło"
+            });
+        }
 
     };
-    /////////
+
     const handleUserDataSave = async () => {
 
         const settingsProcess = new Settings(idLoggedUser);
@@ -91,8 +101,6 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
     return (
         <div className="container">
             <h2 className="appHeader">Ustawienia użytkownika</h2>
-
-            {/* {redirect && <Navigate to="/" />} */}
 
             <Message
                 className={messageComponent.className}
@@ -166,7 +174,7 @@ const SettingsPanel = ({ setIsLoggedIn, idLoggedUser }) => {
                     <form onSubmit={deleteUser}>
 
                         <InputField
-                            labelContent='Jeśli chcesz usunąć konto wpisz w poniższe pole "usuwam"'
+                            labelContent={`Jeśli chcesz usunąć konto wpisz w poniższe pole: ${deletePassword}`}
                             type="text"
                             value={confirmation}
                             setChangedValue={setConfirmation}
